@@ -1,0 +1,28 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from "dotenv";
+
+// Cargar variables de entorno desde el archivo .env
+dotenv.config();
+
+// Inicializar Google Generative AI con la API Key
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+// Obtener el modelo de generación
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Función asíncrona para generar contenido
+async function generateContent() {
+    const prompt = "Explica las diferencias entre  el paradigma funcional y el paradigma orientado a objetos en programación. y da ejemplos de codigo";
+
+
+    
+    try {
+        const result = await model.generateContent(prompt);
+        console.log(result.response.text());
+    } catch (error) {
+        console.error('Error generando contenido:', error);
+    }
+}
+
+// Llamar a la función para generar contenido
+generateContent();
